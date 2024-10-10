@@ -20,7 +20,7 @@ jobs:
           gradle-version: "8.7"
       - name: Run build in a subdirectory
         working-directory: app
-        run: ./gradlew build
+        run: gradle build
       - name: Publish code coverage
         uses: paambaati/codeclimate-action@v9.0.0
         env:
