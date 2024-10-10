@@ -1,24 +1,18 @@
 package hexlet.code.schemas;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class StringSchema {
 
-    private boolean require = false;
-    private Map<String, Object> cheks;
-
-    public StringSchema() {
-        this.cheks = new HashMap<>();
-    }
+    private boolean require;
+    private int currentMinLength;
+    private String currentSubstring = "";
 
     public StringSchema minLength(int minLength) {
-        this.cheks.put("minLength", minLength);
+        this.currentMinLength = minLength;
         return this;
     }
 
     public StringSchema contains(String substring) {
-        this.cheks.put("contains", substring);
+        this.currentSubstring = substring;
         return this;
     }
 
@@ -29,17 +23,14 @@ public class StringSchema {
 
     public boolean isValid(String text) {
 
-        if (require && (text == null || text.isEmpty())) {
+        if (text == null || text.isEmpty()) {
+            return !require;
+        }
+        if (text.length() < currentMinLength) {
             return false;
         }
-
-        for (var key : cheks.keySet()) {
-            if (key.equals("minLength") && text.length() < (int) cheks.get(key)) {
-                return false;
-            }
-            if (key.equals("contains") && !text.contains((String) cheks.get(key))) {
-                return false;
-            }
+        if (!text.contains(currentSubstring)) {
+            return false;
         }
         return true;
     }
