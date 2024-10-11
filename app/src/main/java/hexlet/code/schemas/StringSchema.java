@@ -26,10 +26,7 @@ public class StringSchema {
         if (text == null || text.isEmpty()) {
             return !require;
         }
-        if (text.length() < currentMinLength) {
-            return false;
-        }
-        if (!text.contains(currentSubstring)) {
+        if (text.length() < currentMinLength || !text.contains(currentSubstring)) {
             return false;
         }
         return true;
