@@ -40,7 +40,6 @@ class MapSchemaTest {
         assertFalse(schema.isValid(data)); // false
         data.put("key2", "value2");
         assertTrue(schema.isValid(data)); // true
-
     }
 
     @Test
@@ -56,17 +55,18 @@ class MapSchemaTest {
 
     @Test
     void stringSchemaTest3() {
-        var schema = v.map();
 
         Map<String, BaseSchema<String>> schemas = new HashMap<>();
         schemas.put("firstName", v.string().required());
         schemas.put("lastName", v.string().required().minLength(2));
-        schema.shape(schemas);
+
+        var schema = v.map().sizeof(2).shape(schemas);
 
         Map<String, String> data1 = new HashMap<>();
         data1.put("firstName", "John");
         data1.put("lastName", "Smith");
         assertTrue(schema.isValid(data1)); // true
+        assertFalse(schema.isValid(null)); // false
 
         Map<String, String> data2 = new HashMap<>();
         data2.put("firstName", "John");

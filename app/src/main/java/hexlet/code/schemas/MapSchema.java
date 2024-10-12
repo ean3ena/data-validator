@@ -18,7 +18,7 @@ public class MapSchema extends BaseSchema<Map<String, String>> {
 
         for (var key : schemas.keySet()) {
             var schema = schemas.get(key);
-            checks.put(key, data -> schema.isValid(data.get(key)));
+            checks.put(key, data -> data != null && schema.isValid(data.get(key)));
         }
         return this;
     }

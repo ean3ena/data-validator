@@ -50,6 +50,5 @@ class StringSchemaTest {
         assertTrue(schema.isValid(null)); // true
         schema.required();
         assertFalse(schema.isValid(null)); // false
-
     }
 }
