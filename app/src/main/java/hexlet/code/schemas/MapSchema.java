@@ -2,31 +2,28 @@ package hexlet.code.schemas;
 
 import java.util.Map;
 
-public class MapSchema {
-
-    private boolean require;
-    private boolean requireSize;
-    private int currentSize;
+public class MapSchema extends BaseSchema<Map<String, String>> {
 
     public MapSchema sizeof(int size) {
-        this.currentSize = size;
-        this.requireSize = true;
+        checks.put("checkSizeof", data -> data == null || data.size() == size);
         return this;
     }
 
     public MapSchema required() {
-        this.require = true;
+        checks.put("checkNullOrEmpty", data -> data != null && !data.isEmpty());
+        return this;
+    }
+
+    public MapSchema shape(Map<String, BaseSchema<String>> schemas) {
+
+        for (var key : schemas.keySet()) {
+            var schema = schemas.get(key);
+            checks.put(key, data -> schema.isValid(data.get(key)));
+        }
         return this;
     }
 
     public boolean isValid(Map<String, String> data) {
-
-        if (data == null || data.isEmpty()) {
-            return !require;
-        }
-        if (requireSize && data.size() != currentSize) {
-            return false;
-        }
-        return true;
+        return super.isValid(data);
     }
 }
