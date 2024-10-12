@@ -1,34 +1,23 @@
 package hexlet.code.schemas;
 
-public class StringSchema {
-
-    private boolean require;
-    private int currentMinLength;
-    private String currentSubstring = "";
+public class StringSchema extends BaseSchema<String> {
 
     public StringSchema minLength(int minLength) {
-        this.currentMinLength = minLength;
+        checks.put("checkMinLength", text -> text == null || text.length() >= minLength);
         return this;
     }
 
     public StringSchema contains(String substring) {
-        this.currentSubstring = substring;
+        checks.put("checkSubstring", text -> text == null || text.contains(substring));
         return this;
     }
 
     public StringSchema required() {
-        this.require = true;
+        checks.put("checkNullOrEmpty", text -> text != null && !text.isEmpty());
         return this;
     }
 
     public boolean isValid(String text) {
-
-        if (text == null || text.isEmpty()) {
-            return !require;
-        }
-        if (text.length() < currentMinLength || !text.contains(currentSubstring)) {
-            return false;
-        }
-        return true;
+        return super.isValid(text);
     }
 }

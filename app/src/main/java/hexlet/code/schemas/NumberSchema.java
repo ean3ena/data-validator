@@ -1,39 +1,25 @@
 package hexlet.code.schemas;
 
-public class NumberSchema {
+import java.util.Objects;
 
-    private boolean require;
-    private boolean positive;
-    private boolean inRange;
-    private int[] range;
+public class NumberSchema extends BaseSchema<Integer> {
 
     public NumberSchema positive() {
-        this.positive = true;
+        checks.put("checkPositive", number -> number == null || number > 0);
         return this;
     }
 
     public NumberSchema range(int left, int right) {
-        this.range = new int[]{left, right};
-        this.inRange = true;
+        checks.put("checkRange", number -> number == null || (number >= left && number <= right));
         return this;
     }
 
     public NumberSchema required() {
-        this.require = true;
+        checks.put("checkNull", Objects::nonNull);
         return this;
     }
 
     public boolean isValid(Integer number) {
-
-        if (number == null) {
-            return !require;
-        }
-        if (positive && number <= 0) {
-            return false;
-        }
-        if (inRange && (number < range[0] || number > range[1])) {
-            return false;
-        }
-        return true;
+        return super.isValid(number);
     }
 }
