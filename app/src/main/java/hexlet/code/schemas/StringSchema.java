@@ -1,6 +1,6 @@
 package hexlet.code.schemas;
 
-public class StringSchema extends BaseSchema<String> {
+public final class StringSchema extends BaseSchema<String> {
 
     public StringSchema minLength(int minLength) {
         checks.put("checkMinLength", text -> text == null || text.length() >= minLength);

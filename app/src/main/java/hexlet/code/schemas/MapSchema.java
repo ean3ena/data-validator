@@ -1,8 +1,9 @@
 package hexlet.code.schemas;
 
 import java.util.Map;
+import java.util.Objects;
 
-public class MapSchema extends BaseSchema<Map<String, String>> {
+public final class MapSchema extends BaseSchema<Map<String, String>> {
 
     public MapSchema sizeof(int size) {
         checks.put("checkSizeof", data -> data == null || data.size() == size);
@@ -10,7 +11,7 @@ public class MapSchema extends BaseSchema<Map<String, String>> {
     }
 
     public MapSchema required() {
-        checks.put("checkNull", data -> data != null);
+        checks.put("checkNull", Objects::nonNull);
         return this;
     }
 
