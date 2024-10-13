@@ -9,7 +9,7 @@ public abstract class BaseSchema<T> {
     protected Map<String, Predicate<T>> checks = new LinkedHashMap<>();
 
     /**
-     * Метод проверяет данные по переданной схеме
+     * Метод проверяет данные по переданной схеме.
      * @param obj проверяемые данные
      * @return true если данные проходят проверку по переданной схеме
      */
