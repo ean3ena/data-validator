@@ -10,7 +10,7 @@ public class MapSchema extends BaseSchema<Map<String, String>> {
     }
 
     public MapSchema required() {
-        checks.put("checkNullOrEmpty", data -> data != null && !data.isEmpty());
+        checks.put("checkNull", data -> data != null);
         return this;
     }
 
