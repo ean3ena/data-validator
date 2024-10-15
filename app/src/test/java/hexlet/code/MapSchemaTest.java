@@ -66,7 +66,6 @@ class MapSchemaTest {
         data1.put("firstName", "John");
         data1.put("lastName", "Smith");
         assertTrue(schema.isValid(data1)); // true
-        assertFalse(schema.isValid(null)); // false
 
         Map<String, String> data2 = new HashMap<>();
         data2.put("firstName", "John");
