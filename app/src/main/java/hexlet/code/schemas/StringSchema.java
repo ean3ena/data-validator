@@ -13,6 +13,7 @@ public final class StringSchema extends BaseSchema<String> {
     }
 
     public StringSchema required() {
+        checks.put("checkEmpty", data -> !data.isEmpty());
         required = true;
         return this;
     }
